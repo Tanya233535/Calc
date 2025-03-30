@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.io.*;
 
 public class Calculator {
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String args[]) throws FileNotFoundException{
+        File file = new File("test.txt");
+        Scanner sc = new Scanner(file);
         String[] s = sc.nextLine().split(" ");
         double a = 0, b = 0;
         boolean flag = true;
