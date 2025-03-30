@@ -8,38 +8,50 @@ public class Calculator {
 
         try (Scanner sc = new Scanner(inputFile);
              PrintWriter pw = new PrintWriter(outputFile)) {
-            String[] s = sc.nextLine().split(" ");
-            double a = 0, b = 0;
-            boolean flag = true;
-            String result = "";
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] s = line.split(" ");
+                double a = 0, b = 0;
+                boolean flag = true;
+                String result = "";
 
-            try {
-                a = Double.parseDouble(s[0]);
-                b = Double.parseDouble(s[2]);
-            } catch (NumberFormatException ex){
-                result = "Error! Not number";
-                flag = false;
-            }
-
-            if ("+-*/".contains(s[1]) && flag){
-                switch (s[1]){
-                    case "+": {result = String.valueOf(a+b); break;}
-                    case "-": {result = String.valueOf(a-b); break;}
-                    case "*": {result = String.valueOf(a*b); break;}
-                    case "/":
-                        if(b == 0.0) {
-                            result = "Error! Division by zero";
-                        }else{
-                                result = String.valueOf(a / b);
-                        }
-                        break;
+                try {
+                    a = Double.parseDouble(s[0]);
+                    b = Double.parseDouble(s[2]);
+                } catch (NumberFormatException ex) {
+                    result = "Error! Not number";
+                    flag = false;
                 }
-            } else if (flag) {
-                result = "Operation Error!";
+
+                if ("+-*/".contains(s[1]) && flag) {
+                    switch (s[1]) {
+                        case "+": {
+                            result = String.valueOf(a + b);
+                            break;
+                        }
+                        case "-": {
+                            result = String.valueOf(a - b);
+                            break;
+                        }
+                        case "*": {
+                            result = String.valueOf(a * b);
+                            break;
+                        }
+                        case "/":
+                            if (b == 0.0) {
+                                result = "Error! Division by zero";
+                            } else {
+                                result = String.valueOf(a / b);
+                            }
+                            break;
+                    }
+                } else if (flag) {
+                    result = "Operation Error!";
+                }
+                String outputLine = line + " = " + result;
+                pw.println(outputLine);
             }
-            System.out.println(result);
-            pw.println(result);
-             } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Input file not found.");
         }
     }
